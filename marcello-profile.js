@@ -131,8 +131,9 @@
     const halo = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, scale * 1.55);
     halo.addColorStop(0, 'rgba(24,65,160,.12)'); halo.addColorStop(.65, 'rgba(16,51,146,.06)'); halo.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.fillStyle = halo; ctx.fillRect(0, 0, width, height);
+    const sceneIndex = Number(chapters[active].dataset.scene);
     for (let i = 0; i < count; i++) {
-      const p = positions[i], target = shapes[i][active];
+      const p = positions[i], target = shapes[i][sceneIndex] || shapes[i][0];
       for (let n = 0; n < 3; n++) p[n] += (target[n] - p[n]) * interpolation;
       const rx = p[0] * cs + p[2] * sn, rz = -p[0] * sn + p[2] * cs;
       const ry = p[1] * ct - rz * st, z = p[1] * st + rz * ct, perspective = 3.6 / (3.6 - z);
